@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+agm-map {
+  height: 300px;
+}
+
+.backdrop{
+  background-color:rgba(0,0,0,0.6);
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100vh;
+}
+
+.searchBox {
+  position: relative;
+}
+
+.search {
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: 10px;
+}
+
+input[name="search"] {
+  border: none;
+}
+
+input[name="search"]:focus {
+  outline: 0;
+}
+
+.glyphicon-search {
+  cursor: pointer;
+}

@@ -1,0 +1,79 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<h1>{{ title }}</h1>
+		</div>
+		<div class="col-md-12 searchBox">
+			<div class="search">
+				<input type="text"  name="search" placeholder="search username or notes...." [(ngModel)]="searchText">
+				<span class="glyphicon glyphicon-search" (click)="search()"></span>
+			</div>
+			<agm-map
+						[latitude]='lat'
+						[longitude]='lng'
+						[zoom]='2'
+						(mapClick)='addMarker($event.coords.lat, $event.coords.lng)'>
+						<agm-marker
+							*ngFor='let marker of markers'
+							[latitude]='marker.lat'
+							[longitude]='marker.lng'
+							[opacity]='marker.alpha'
+							[markerDraggable]='true'
+							(markerClick)='selectMarker($event)'
+							>
+					</agm-marker>
+			</agm-map>
+		</div>
+		<div class="col-md-12">
+			<div class="table-responsive" *ngIf='selectedMarker'>
+			  <table class="table">
+			    <thead>
+			      <tr>
+			        <th>Longitude</th>
+			        <th>Latitude</th>
+			        <th>Username</th>
+			        <th>Notes</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr>
+			        <td>{{ selectedMarker.lng }}</td>
+			        <td>{{ selectedMarker.lat }}</td>
+			        <td>{{ selectedMarker.username }}</td>
+			        <td>{{ selectedMarker.notes }}</td>
+			      </tr>
+			    </tbody>
+			  </table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- the modal -->
+
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-primary">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Landmark Notes</h4>
+      </div>
+      <div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<input type="text"  class="form-control" placeholder="name" [(ngModel)]="username"><br>
+            <textarea rows="4" cols="50" class="form-control" placeholder="Enter landmark details.." [(ngModel)]="notes">
+            </textarea>
+					</div>
+				</div>
+      </div>
+      <div class="modal-footer">
+				<button type="button" class="btn btn-primary" name="button" (click)="save()">Save</button>
+        <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
